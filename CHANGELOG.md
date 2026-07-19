@@ -7,6 +7,27 @@ and versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-19
+
+### Added
+
+- Public `/healthz` liveness and `/readyz` readiness endpoints with bounded
+  local checks for storage, installation, identity workflows, service catalog,
+  and audit diagnostics.
+- Administrator-only `/admin/monitoring` page with overall health, indicator
+  details, last evaluation times, severity, and safe recommended actions.
+- Redacted `health_state_changed` diagnostics for readiness state transitions.
+
+### Changed
+
+- Release workflow setup now uses `astral-sh/setup-uv` v8.3.2.
+
+### Security
+
+- Public health output, admin monitoring details, and transition diagnostics now
+  share explicit redaction checks for credentials, sessions, tokens, database
+  URLs, service targets, raw exceptions, and private configuration.
+
 ## [0.3.0] - 2026-06-25
 
 ### Added
@@ -62,7 +83,8 @@ and versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   compatibility aliases. Cookie names, audit logger names, and the default
   database filename may retain old internal labels to preserve security state.
 
-[Unreleased]: https://github.com/zondatw/auth-ingress/compare/v0.3.0...main
+[Unreleased]: https://github.com/zondatw/auth-ingress/compare/v0.4.0...main
+[0.4.0]: https://github.com/zondatw/auth-ingress/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/zondatw/auth-ingress/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/zondatw/auth-ingress/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/zondatw/auth-ingress/releases/tag/v0.1.0
