@@ -12,7 +12,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from auth_ingress.repositories.schema import create_schema
 from auth_ingress.services.downstream_service import close_clients
 from auth_ingress.services.proxy_websocket_service import close_websockets
-from auth_ingress.web.routes import admin_audit, admin_groups, admin_services, admin_users, auth, password_reset, portal, services
+from auth_ingress.web.routes import admin_audit, admin_groups, admin_services, admin_users, auth, health, password_reset, portal, services
 from auth_ingress.web.routes.proxy import ProxyDispatchMiddleware
 from auth_ingress.web.web import WEB_ROOT, template
 
@@ -60,6 +60,7 @@ def create_app(*, initialize_schema: bool = True, proxy_settings=None, proxy_ses
         session_factory=proxy_session_factory or SessionLocal,
     )
     app.mount("/static", StaticFiles(directory=WEB_ROOT / "static"), name="static")
+    app.include_router(health.router)
     app.include_router(auth.router)
     app.include_router(password_reset.router)
     app.include_router(portal.router)
