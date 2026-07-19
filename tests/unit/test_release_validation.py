@@ -13,7 +13,7 @@ from scripts.release.validate_release import ReleaseContext, release_target, val
 def valid_context(**changes) -> ReleaseContext:
     values = {
         "action": "published",
-        "tag": "v0.3.0",
+        "tag": "v0.4.0",
         "prerelease": False,
         "target_commitish": "beta",
         "target_index": "testpypi",
@@ -25,7 +25,7 @@ def valid_context(**changes) -> ReleaseContext:
 
 def test_valid_stable_release_passes():
     metadata = validate_release(valid_context(), load_pyproject())
-    assert str(metadata.version) == "0.3.0"
+    assert str(metadata.version) == "0.4.0"
     assert metadata.target_index == "testpypi"
 
 
@@ -34,7 +34,7 @@ def test_release_branch_targets_pypi():
         valid_context(target_commitish="release", target_index="pypi"),
         load_pyproject(),
     )
-    assert str(metadata.version) == "0.3.0"
+    assert str(metadata.version) == "0.4.0"
     assert metadata.target_branch == "release"
     assert metadata.target_index == "pypi"
 
@@ -51,8 +51,8 @@ def test_branch_target_resolution_is_exact():
     ("changes", "reason"),
     [
         ({"action": "created"}, "release-event-not-published"),
-        ({"tag": "0.3.0"}, "release-tag-must-start-with-v"),
-        ({"tag": "v0.3.1"}, "tag-version-mismatch"),
+        ({"tag": "0.4.0"}, "release-tag-must-start-with-v"),
+        ({"tag": "v0.4.1"}, "tag-version-mismatch"),
         ({"prerelease": True}, "release-type-mismatch"),
         ({"target_commitish": "feature"}, "release-target-unsupported"),
         ({"target_commitish": "release"}, "release-target-not-testpypi"),
@@ -74,8 +74,8 @@ def test_wrong_package_name_and_missing_metadata_fail():
 
 def test_prerelease_requires_matching_prerelease_version():
     document = deepcopy(load_pyproject())
-    document["project"]["version"] = "0.3.0rc1"
-    context = valid_context(tag="v0.3.0rc1", prerelease=True)
+    document["project"]["version"] = "0.4.0rc1"
+    context = valid_context(tag="v0.4.0rc1", prerelease=True)
     metadata = validate_release(context, document)
     assert metadata.version.is_prerelease
 
@@ -89,7 +89,7 @@ def test_release_validation_cli_reports_safe_reason_without_traceback():
             "--action",
             "published",
             "--tag",
-            "v0.3.0",
+            "v0.4.0",
             "--prerelease",
             "false",
             "--target-commitish",

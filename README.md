@@ -16,7 +16,7 @@ virtual environment and pin the version in managed deployments:
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install "auth-ingress==0.3.0"
+python -m pip install "auth-ingress==0.4.0"
 auth-ingress --help
 ```
 
@@ -160,6 +160,33 @@ without retrying unsafe requests or exposing internal details. Operators should
 use the response correlation ID and audit events to investigate. Revoke access by
 disabling a user, removing group membership, disabling a service, or revoking its
 active sessions; authorization is re-evaluated on every protected request.
+
+## Health and monitoring
+
+`GET /healthz` is the public liveness check. It returns HTTP 200 with a minimal
+JSON body containing `status: "alive"` and a UTC `checked_at` timestamp. It does
+not require a session and does not create cookies, CSRF values, audit records, or
+other authentication artifacts.
+
+`GET /readyz` is the public readiness check. It performs bounded local checks for
+storage, installation state, identity workflows, service catalog availability,
+and audit diagnostics. It returns HTTP 200 only when readiness is `healthy`; it
+returns HTTP 503 for `setup_required`, `degraded`, or `unavailable`. The public
+response includes only broad status, timestamp, reason, correlation ID when
+available, and check keys with broad states. It never probes downstream services
+and does not expose users, groups, service targets, database details, raw
+exceptions, secrets, tokens, cookies, credentials, or private configuration.
+
+Active administrators can review detailed but still redacted indicators at
+`/admin/monitoring`. The page shows overall health, evaluated categories, last
+evaluation time, severity, summaries, and safe recommended actions. Non-admin
+and signed-out requests are denied before detailed indicators are evaluated or
+rendered.
+
+Readiness state changes emit a redacted `health_state_changed` application log
+with previous status, current status, broad reason, timestamp, and correlation ID
+when available. Repeated checks in the same state stay quiet and routine health
+polling does not create security audit records.
 
 ## Full web-app proxy deployment
 
