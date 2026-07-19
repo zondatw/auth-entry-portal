@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Health monitoring · auth-ingress{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Administration</p>
+    <h1>Health monitoring</h1>
+    <p class="muted">Review local readiness indicators and safe operator actions for auth-ingress.</p>
+  </div>
+  <a class="button secondary" href="/admin/audit">Audit events</a>
+</div>
+
+<section class="summary-grid" aria-label="Monitoring summary">
+  {% for item in summary %}
+  {% set state_class = item.status|replace('_', '-') %}
+  <article class="metric-card metric-{{ state_class }}">
+    <span class="metric-label">{{ item.label }}</span>
+    <span class="metric-value">{{ item.value }}</span>
+    <p class="metric-hint">{{ item.hint }}</p>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="panel monitoring-panel">
+  <div class="title-row">
+    <div>
+      <h2>Indicator details</h2>
+      <p class="muted">Last evaluated {{ overall.checked_at }}.</p>
+    </div>
+    <span class="status status-{{ overall.status|replace('_', '-') }}">{{ overall.status|replace('_', ' ') }}</span>
+  </div>
+  <div class="monitoring-list">
+    {% for indicator in indicators %}
+    {% set state_class = indicator.status|replace('_', '-') %}
+    <article class="monitoring-row monitoring-{{ state_class }}">
+      <div class="monitoring-heading">
+        <div>
+          <h3>{{ indicator.label }}</h3>
+          <p class="monitoring-meta">Last evaluated {{ indicator.last_evaluated_at }}</p>
+        </div>
+        <span class="status status-{{ state_class }}">{{ indicator.status|replace('_', ' ') }}</span>
+      </div>
+      <p>{{ indicator.summary }}</p>
+      <p><strong>Recommended action</strong>: {{ indicator.recommended_action }}</p>
+    </article>
+    {% else %}
+    <section class="empty"><h2>No monitoring indicators</h2><p>Refresh after local operating conditions are available.</p></section>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

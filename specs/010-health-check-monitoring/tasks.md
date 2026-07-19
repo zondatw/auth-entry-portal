@@ -31,8 +31,8 @@ implementation and testing of each story.
 **Purpose**: Add the empty feature files and shared test helper locations needed
 by later tasks.
 
-- [ ] T001 Create health route module skeleton with APIRouter in src/auth_ingress/web/routes/health.py
-- [ ] T002 [P] Create health service module skeleton for read-only health view models in src/auth_ingress/services/health_service.py
+- [X] T001 Create health route module skeleton with APIRouter in src/auth_ingress/web/routes/health.py
+- [X] T002 [P] Create health service module skeleton for read-only health view models in src/auth_ingress/services/health_service.py
 
 ---
 
@@ -43,11 +43,11 @@ implemented.
 
 **CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T003 Define HealthCheckResult, MonitoringIndicator, OperatingCondition, DiagnosticEvidence, allowed status values, allowed check keys, and reason constants in src/auth_ingress/services/health_service.py
-- [ ] T004 Add public-safe serialization and sensitive-output redaction guard helpers in src/auth_ingress/services/health_service.py
-- [ ] T005 Register the health router with application middleware coverage in src/auth_ingress/main.py
-- [ ] T006 [P] Add reusable forbidden-vocabulary and health-response assertion helpers in tests/health_monitoring_helpers.py
-- [ ] T007 Add health state CSS class placeholders for healthy, degraded, setup-required, unavailable, unknown, and stale states in src/auth_ingress/web/static/portal.css
+- [X] T003 Define HealthCheckResult, MonitoringIndicator, OperatingCondition, DiagnosticEvidence, allowed status values, allowed check keys, and reason constants in src/auth_ingress/services/health_service.py
+- [X] T004 Add public-safe serialization and sensitive-output redaction guard helpers in src/auth_ingress/services/health_service.py
+- [X] T005 Register the health router with application middleware coverage in src/auth_ingress/main.py
+- [X] T006 [P] Add reusable forbidden-vocabulary and health-response assertion helpers in tests/health_monitoring_helpers.py
+- [X] T007 Add health state CSS class placeholders for healthy, degraded, setup-required, unavailable, unknown, and stale states in src/auth_ingress/web/static/portal.css
 
 **Checkpoint**: Foundation ready. User story implementation can now begin.
 
@@ -66,17 +66,17 @@ machine-readable, bounded, and free of sensitive details.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T008 [P] [US1] Add contract tests for GET /healthz and GET /readyz response shapes, status mapping, security headers, and allowed public check keys in tests/contract/test_health_contract.py
-- [ ] T009 [P] [US1] Add integration tests for healthy, setup-required, degraded, and unavailable readiness derivation in tests/integration/test_health_monitoring.py
-- [ ] T010 [P] [US1] Add security tests that public health checks require no session, create no cookies or tokens, avoid CSRF, and redact sensitive values in tests/security/test_health_monitoring_security.py
+- [X] T008 [P] [US1] Add contract tests for GET /healthz and GET /readyz response shapes, status mapping, security headers, and allowed public check keys in tests/contract/test_health_contract.py
+- [X] T009 [P] [US1] Add integration tests for healthy, setup-required, degraded, and unavailable readiness derivation in tests/integration/test_health_monitoring.py
+- [X] T010 [P] [US1] Add security tests that public health checks require no session, create no cookies or tokens, avoid CSRF, and redact sensitive values in tests/security/test_health_monitoring_security.py
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement liveness result construction with UTC checked_at serialization in src/auth_ingress/services/health_service.py
-- [ ] T012 [US1] Implement bounded readiness checks for storage, installation, identity_workflows, service_catalog, and audit_diagnostics without downstream destination probes in src/auth_ingress/services/health_service.py
-- [ ] T013 [US1] Implement GET /healthz and GET /readyz route handlers using the health service in src/auth_ingress/web/routes/health.py
-- [ ] T014 [US1] Map readiness statuses to public HTTP 200 or 503 outcomes with broad reason categories in src/auth_ingress/web/routes/health.py
-- [ ] T015 [US1] Verify public health endpoints do not expose users, groups, service destinations, database URLs, raw exceptions, cookies, sessions, CSRF values, tokens, or credentials in tests/security/test_health_monitoring_security.py
+- [X] T011 [US1] Implement liveness result construction with UTC checked_at serialization in src/auth_ingress/services/health_service.py
+- [X] T012 [US1] Implement bounded readiness checks for storage, installation, identity_workflows, service_catalog, and audit_diagnostics without downstream destination probes in src/auth_ingress/services/health_service.py
+- [X] T013 [US1] Implement GET /healthz and GET /readyz route handlers using the health service in src/auth_ingress/web/routes/health.py
+- [X] T014 [US1] Map readiness statuses to public HTTP 200 or 503 outcomes with broad reason categories in src/auth_ingress/web/routes/health.py
+- [X] T015 [US1] Verify public health endpoints do not expose users, groups, service destinations, database URLs, raw exceptions, cookies, sessions, CSRF values, tokens, or credentials in tests/security/test_health_monitoring_security.py
 
 **Checkpoint**: User Story 1 is independently functional and is the suggested
 MVP scope.
@@ -98,16 +98,16 @@ unnecessary personal data.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T016 [P] [US2] Add contract tests for /admin/monitoring required page elements, admin-only content, indicator states, and empty/setup guidance in tests/contract/test_monitoring_ui_contract.py
-- [ ] T017 [P] [US2] Add Playwright tests for /admin/monitoring responsive layout, non-color status cues, readable long text, and keyboard focus in tests/e2e/test_health_monitoring.py
+- [X] T016 [P] [US2] Add contract tests for /admin/monitoring required page elements, admin-only content, indicator states, and empty/setup guidance in tests/contract/test_monitoring_ui_contract.py
+- [X] T017 [P] [US2] Add Playwright tests for /admin/monitoring responsive layout, non-color status cues, readable long text, and keyboard focus in tests/e2e/test_health_monitoring.py
 
 ### Implementation for User Story 2
 
-- [ ] T018 [US2] Extend admin-facing MonitoringIndicator builders with severity, summary, last_evaluated_at, public_reason, and recommended_action in src/auth_ingress/services/health_service.py
-- [ ] T019 [US2] Implement GET /admin/monitoring with require_admin authorization and template rendering in src/auth_ingress/web/routes/health.py
-- [ ] T020 [US2] Create admin monitoring page with summary grid, indicator details, status chips, recommendations, and empty/setup states in src/auth_ingress/web/templates/admin/monitoring.html
-- [ ] T021 [US2] Add administrator navigation link for Monitoring in src/auth_ingress/web/templates/base.html
-- [ ] T022 [US2] Complete monitoring indicator layout, wrapping, focus, contrast, and state styles in src/auth_ingress/web/static/portal.css
+- [X] T018 [US2] Extend admin-facing MonitoringIndicator builders with severity, summary, last_evaluated_at, public_reason, and recommended_action in src/auth_ingress/services/health_service.py
+- [X] T019 [US2] Implement GET /admin/monitoring with require_admin authorization and template rendering in src/auth_ingress/web/routes/health.py
+- [X] T020 [US2] Create admin monitoring page with summary grid, indicator details, status chips, recommendations, and empty/setup states in src/auth_ingress/web/templates/admin/monitoring.html
+- [X] T021 [US2] Add administrator navigation link for Monitoring in src/auth_ingress/web/templates/base.html
+- [X] T022 [US2] Complete monitoring indicator layout, wrapping, focus, contrast, and state styles in src/auth_ingress/web/static/portal.css
 
 **Checkpoint**: User Story 2 works independently after Foundation and provides
 admin monitoring without changing existing admin workflows.
@@ -128,14 +128,14 @@ audit records or leak detailed indicator data to unauthorized users.
 
 Write these tests first and confirm they fail before implementation.
 
-- [ ] T023 [P] [US3] Add integration tests for health state transition detection and routine-check quiet behavior in tests/integration/test_health_monitoring.py
-- [ ] T024 [P] [US3] Add security tests for denied /admin/monitoring access, no detailed indicator leaks, no audit flood, and sensitive vocabulary redaction in tests/security/test_health_monitoring_security.py
+- [X] T023 [P] [US3] Add integration tests for health state transition detection and routine-check quiet behavior in tests/integration/test_health_monitoring.py
+- [X] T024 [P] [US3] Add security tests for denied /admin/monitoring access, no detailed indicator leaks, no audit flood, and sensitive vocabulary redaction in tests/security/test_health_monitoring_security.py
 
 ### Implementation for User Story 3
 
-- [ ] T025 [US3] Implement in-memory health state transition tracking and redacted health_state_changed log emission in src/auth_ingress/services/health_service.py
-- [ ] T026 [US3] Ensure /admin/monitoring applies require_admin before evaluating or rendering detailed indicators in src/auth_ingress/web/routes/health.py
-- [ ] T027 [US3] Keep routine health checks free of audit_service.record_event writes while preserving request diagnostics in src/auth_ingress/services/health_service.py and src/auth_ingress/web/routes/health.py
+- [X] T025 [US3] Implement in-memory health state transition tracking and redacted health_state_changed log emission in src/auth_ingress/services/health_service.py
+- [X] T026 [US3] Ensure /admin/monitoring applies require_admin before evaluating or rendering detailed indicators in src/auth_ingress/web/routes/health.py
+- [X] T027 [US3] Keep routine health checks free of audit_service.record_event writes while preserving request diagnostics in src/auth_ingress/services/health_service.py and src/auth_ingress/web/routes/health.py
 
 **Checkpoint**: All user stories are independently functional and security
 diagnostics remain non-sensitive.
@@ -147,12 +147,12 @@ diagnostics remain non-sensitive.
 **Purpose**: Documentation, verification, and no-regression coverage across the
 feature.
 
-- [ ] T028 [P] Document /healthz, /readyz, /admin/monitoring, health state meanings, and redaction boundaries for operators in README.md
-- [ ] T029 [P] Update validation guidance if implementation details changed in specs/010-health-check-monitoring/quickstart.md
-- [ ] T030 Run focused backend validation from quickstart for tests/contract/test_health_contract.py, tests/contract/test_monitoring_ui_contract.py, tests/integration/test_health_monitoring.py, and tests/security/test_health_monitoring_security.py
-- [ ] T031 Run browser validation for admin monitoring in tests/e2e/test_health_monitoring.py
-- [ ] T032 Run existing protected-journey regressions for tests/contract/test_user_entry_contract.py, tests/contract/test_admin_contract.py, tests/contract/test_admin_groups_contract.py, tests/contract/test_admin_users_contract.py, and tests/security/test_session_boundary.py
-- [ ] T033 Review public JSON, rendered admin monitoring HTML, and logs against contracts/security-diagnostics.md using tests/health_monitoring_helpers.py
+- [X] T028 [P] Document /healthz, /readyz, /admin/monitoring, health state meanings, and redaction boundaries for operators in README.md
+- [X] T029 [P] Update validation guidance if implementation details changed in specs/010-health-check-monitoring/quickstart.md
+- [X] T030 Run focused backend validation from quickstart for tests/contract/test_health_contract.py, tests/contract/test_monitoring_ui_contract.py, tests/integration/test_health_monitoring.py, and tests/security/test_health_monitoring_security.py
+- [X] T031 Run browser validation for admin monitoring in tests/e2e/test_health_monitoring.py
+- [X] T032 Run existing protected-journey regressions for tests/contract/test_user_entry_contract.py, tests/contract/test_admin_contract.py, tests/contract/test_admin_groups_contract.py, tests/contract/test_admin_users_contract.py, and tests/security/test_session_boundary.py
+- [X] T033 Review public JSON, rendered admin monitoring HTML, and logs against contracts/security-diagnostics.md using tests/health_monitoring_helpers.py
 
 ---
 

@@ -56,6 +56,11 @@ Expected result when setup is incomplete: status `503`, `status:
 "setup_required"`, and no credential, user, service destination, database, or
 private configuration details.
 
+Expected result for degraded or unavailable local conditions: status `503` with
+a broad reason such as `service_catalog_degraded`, `identity_degraded`, or
+`storage_unavailable`. Public output remains limited to status, timestamp,
+reason, optional correlation ID, and check key/state pairs.
+
 Review admin monitoring:
 
 1. Sign in as an active administrator.
@@ -70,6 +75,15 @@ Verify denial behavior:
 1. Sign out and request `/admin/monitoring`.
 2. Sign in as a non-admin user and request `/admin/monitoring`.
 3. Confirm detailed indicator content is not rendered in either denial path.
+
+Verify diagnostic behavior:
+
+1. Trigger a readiness state change, such as temporarily removing all configured
+   service entries in a disposable database.
+2. Request `/readyz`.
+3. Confirm one redacted `health_state_changed` application log is emitted.
+4. Repeat `/readyz` without changing state and confirm no new transition log or
+   security audit event is created by the health check itself.
 
 ## Contract References
 
